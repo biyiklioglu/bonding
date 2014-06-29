@@ -142,7 +142,7 @@ def set_iface_flag(ifname, flag, flags = None):
     ifreq = fcntl.ioctl(s.fileno(), SIOCGIFFLAGS, struct.pack('256s', ifname[:15]))
     (flags,) = struct.unpack('16xH', ifreq[:18])
   flags |= flag
-  ifreq = struct.pack('4s12xH', ifname, flags)
+  ifreq = struct.pack('16sH', ifname, flags)
   fcntl.ioctl(s.fileno(), SIOCSIFFLAGS, ifreq)
   s.close()
   return flags
